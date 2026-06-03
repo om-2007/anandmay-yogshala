@@ -1,0 +1,6 @@
+{
+  "name": "Anandmay Yogshala",
+  "description": "Premium Yoga, Holistic Health and Life Coaching website grounded in the timeless wisdom of the Bhagavad Gita and practical modern alignment.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
