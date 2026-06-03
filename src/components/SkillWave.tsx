@@ -409,7 +409,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
               {/* Image 1 - Mentoring */}
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-zinc-200/60 group">
                 <img 
-                  src="/assets/skillwave/mentoring-1.jpg" 
+                  src="/mentoring-1.jpg" 
                   alt="One-on-one mentoring session" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -423,7 +423,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
               {/* Image 2 - Focus */}
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-zinc-200/60 group">
                 <img 
-                  src="/assets/skillwave/focus-2.jpg" 
+                  src="/focus-2.jpg" 
                   alt="Deep focus and concentration coaching" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -437,7 +437,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
               {/* Image 3 - Coaching */}
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-zinc-200/60 group">
                 <img 
-                  src="/assets/skillwave/coaching-3.jpg" 
+                  src="/coaching-3.jpg" 
                   alt="Interactive coaching session" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
@@ -451,7 +451,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
               {/* Image 4 - Session */}
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-zinc-200/60 group">
                 <img 
-                  src="/assets/skillwave/session-4.jpg" 
+                  src="/session-4.jpg" 
                   alt="Professional development session" 
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
