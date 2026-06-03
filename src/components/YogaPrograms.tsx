@@ -30,7 +30,7 @@ export default function YogaPrograms() {
       details: 'Hatha yoga is the foundation of all physical yoga. In our sessions, we emphasize spinal length, weight balance, and clean skeletal alignment. Ideal for developing physical discipline, correcting posture, and building raw strength from the feet up.',
       icon: Anchor,
       accent: 'border-[#1A3B32]/10 bg-[#1A3B32]/10 text-[#1A3B32]',
-      image: '/assets/practices/hatha-yoga.jpg'
+      image: '/hatha-yoga.jpg'
     },
     {
       name: 'Ashtanga Yoga',
@@ -39,7 +39,7 @@ export default function YogaPrograms() {
       details: 'This is a dynamic, structured sequencing style designed to heat the body, release muscular tension, and build deep stamina. Every stretch is coordinated with continuous flow, refining body architecture and cardiovascular response.',
       icon: Flame,
       accent: 'border-[#D97706]/20 bg-[#D97706]/10 text-[#D97706]',
-      image: '/assets/practices/ashtanga-yoga.jpg'
+      image: '/ashtanga-yoga.jpg'
     },
     {
       name: 'Vinyasa Yoga',
@@ -48,7 +48,7 @@ export default function YogaPrograms() {
       details: 'Vinyasa coordinates fluid postures with rhythmic breath, creating a meditative, continuous dance. This practice trains spatial coordination, joint flexibility, and cardiac pacing, inducing deep emotional release.',
       icon: Compass,
       accent: 'border-[#D97706]/20 bg-[#D97706]/10 text-[#D97706]',
-      image: '/assets/practices/vinyasa-yoga.jpg'
+      image: '/vinyasa-yoga.jpg'
     },
     {
       name: 'Pranayama',
@@ -57,7 +57,7 @@ export default function YogaPrograms() {
       details: 'Pranayama is the science of breath regulation. Learn techniques like Anulom Vilom, Kapalbhati, and Bhastrika to regulate oxygen saturation, shift your autonomic nervous system from high-stress to rest, and clear immediate anxiety.',
       icon: Wind,
       accent: 'border-[#1A3B32]/10 bg-[#1A3B32]/15 text-[#1A3B32]',
-      image: '/assets/practices/pranayama.jpg'
+      image: '/pranayama.jpg'
     },
     {
       name: 'Bandhas & Mudras',
@@ -66,7 +66,7 @@ export default function YogaPrograms() {
       details: 'Bandhas (Mula, Uddiyana, Jalandhara) represent core muscular locks that contain and redirect pranic energy, stabilizing posture structures. Combined with mudras (hand gestures), they train micro-attention and assist deep brain focus.',
       icon: Target,
       accent: 'border-[#1A3B32]/10 bg-[#1A3B32]/10 text-[#1A3B32]',
-      image: '/assets/practices/bandhas-mudras.jpg'
+      image: '/bandhas-mudras.jpg'
     },
     {
       name: 'Meditation & Mind Training',
@@ -75,7 +75,7 @@ export default function YogaPrograms() {
       details: 'We do not ask you to simply "stop thinking." We provide active, progressive mental tools grounded in Dharana (focused concentration). Learn to step back from wild emotional thoughts, analyze mind states objectively, and find calm.',
       icon: Users,
       accent: 'border-[#D97706]/20 bg-[#D97706]/10 text-[#D97706]',
-      image: '/assets/practices/meditation.jpg'
+      image: '/meditation.jpg'
     },
     {
       name: 'Sound Healing',
@@ -84,7 +84,7 @@ export default function YogaPrograms() {
       details: 'High-frequency acoustic vibrations from Himalayan singing bowls are built directly into selected relaxation units. These sound waves prompt a deep neurological reset, promoting effortless parasympathetic recovery and peaceful restorative rest.',
       icon: Music,
       accent: 'border-[#1A3B32]/20 bg-[#1A3B32]/10 text-[#1A3B32]',
-      image: '/assets/practices/sound-healing.jpg'
+      image: '/sound-healing.jpg'
     }
   ];
 
