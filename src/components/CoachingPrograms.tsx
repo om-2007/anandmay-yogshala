@@ -95,7 +95,7 @@ export default function CoachingPrograms({ onSelectProgram }: CoachingProgramsPr
   return (
     <section id="coaching" className="py-24 bg-[#EFECE6] border-t border-[#1A3B32]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Intro Banner Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
           <div className="lg:col-span-8 space-y-6">
@@ -130,16 +130,16 @@ export default function CoachingPrograms({ onSelectProgram }: CoachingProgramsPr
           {/* Golden Quote Block */}
           <div className="lg:col-span-4 bg-[#1A3B32] p-8 rounded-[24px] text-white shadow-xl flex flex-col justify-between border border-[#D97706]/20 relative overflow-hidden">
             <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#D97706]/10 pointer-events-none" />
-            
+
             <div className="space-y-4">
               <span className="text-[9px] uppercase font-mono tracking-widest text-[#D97706] font-semibold">Core Realization</span>
               <p className="font-serif italic text-lg leading-relaxed text-stone-100">
                 &ldquo;When the mind becomes clear, life begins to align.&rdquo;
               </p>
             </div>
-            
+
             <div className="mt-8 pt-4 border-t border-white/10 text-[10px] text-stone-400 font-mono">
-              ANANDMAY COACHING ENGINE
+              ANANDMAY METHOD
             </div>
           </div>
         </div>
@@ -149,25 +149,22 @@ export default function CoachingPrograms({ onSelectProgram }: CoachingProgramsPr
           <div className="flex bg-[#1A3B32]/5 p-1 rounded-full border border-[#1A3B32]/10 max-w-2xl mx-auto mb-8">
             <button
               onClick={() => setSelectedTab('1to1')}
-              className={`flex-1 py-3 text-center rounded-full font-mono text-xs uppercase cursor-pointer transition-all duration-200 ${
-                selectedTab === '1to1' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-650 hover:text-[#1A3B32]'
-              }`}
+              className={`flex-1 py-3 text-center rounded-full font-mono text-xs uppercase cursor-pointer transition-all duration-200 ${selectedTab === '1to1' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-650 hover:text-[#1A3B32]'
+                }`}
             >
               1:1 Life Coaching
             </button>
             <button
               onClick={() => setSelectedTab('parenting')}
-              className={`flex-1 py-3 text-center rounded-full font-mono text-xs uppercase cursor-pointer transition-all duration-200 ${
-                selectedTab === 'parenting' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-650 hover:text-[#1A3B32]'
-              }`}
+              className={`flex-1 py-3 text-center rounded-full font-mono text-xs uppercase cursor-pointer transition-all duration-200 ${selectedTab === 'parenting' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-650 hover:text-[#1A3B32]'
+                }`}
             >
               Parenting Counselling
             </button>
             <button
               onClick={() => setSelectedTab('kids')}
-              className={`flex-1 py-3 text-center rounded-full font-mono text-xs uppercase cursor-pointer transition-all duration-200 ${
-                selectedTab === 'kids' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-650 hover:text-[#1A3B32]'
-              }`}
+              className={`flex-1 py-3 text-center rounded-full font-mono text-xs uppercase cursor-pointer transition-all duration-200 ${selectedTab === 'kids' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-650 hover:text-[#1A3B32]'
+                }`}
             >
               Kids & Teen Support
             </button>
@@ -189,7 +186,7 @@ export default function CoachingPrograms({ onSelectProgram }: CoachingProgramsPr
                 {categories[selectedTab].desc}
               </p>
             </div>
-            
+
             <div className="flex-shrink-0 flex flex-col items-center gap-2">
               <div className="w-14 h-14 rounded-full bg-[#1A3B32]/5 text-[#1A3B32] flex items-center justify-center border border-[#1A3B32]/10">
                 <UserCheck className="w-6 h-6 text-[#D97706]" />
@@ -203,7 +200,7 @@ export default function CoachingPrograms({ onSelectProgram }: CoachingProgramsPr
         {/* 2. Interactive Investment Card Grid */}
         <div className="border-t border-[#1A3B32]/10 pt-16">
           <div className="text-center max-w-xl mx-auto mb-12">
-            <h3 className="font-serif font-bold text-2xl text-[#1A3B32]">Coaching Investment Matrix</h3>
+            <h3 className="font-serif font-bold text-2xl text-[#1A3B32]">Life Coaching Investment Matrix</h3>
             <p className="text-xs text-zinc-500 font-sans mt-2">
               Select any package below to inspect the key outcomes & features before applying:
             </p>
@@ -214,13 +211,12 @@ export default function CoachingPrograms({ onSelectProgram }: CoachingProgramsPr
               <div
                 key={plan.name}
                 onClick={() => setActivePackage(idx)}
-                className={`flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 relative cursor-pointer ${
-                  plan.isReset 
-                    ? 'bg-[#1A3B32] text-white border-[#D97706]/30 shadow-md ring-2 ring-[#D97706]/40' 
-                    : activePackage === idx
+                className={`flex flex-col justify-between p-6 rounded-2xl border transition-all duration-300 relative cursor-pointer ${plan.isReset
+                  ? 'bg-[#1A3B32] text-white border-[#D97706]/30 shadow-md ring-2 ring-[#D97706]/40'
+                  : activePackage === idx
                     ? 'bg-white border-[#1A3B32] shadow-md ring-1 ring-[#1A3B32]'
                     : 'bg-white/80 backdrop-blur-md border-[#1A3B32]/10 hover:border-[#1A3B32] shadow-xs'
-                }`}
+                  }`}
               >
                 {plan.isReset && (
                   <div className="absolute top-0 right-1/2 translate-x-1/2 -translate-y-1/2 px-3 py-1 rounded-full bg-[#D97706] text-white font-mono text-[9px] uppercase tracking-widest font-extrabold shadow-sm">
@@ -264,11 +260,10 @@ export default function CoachingPrograms({ onSelectProgram }: CoachingProgramsPr
                       e.stopPropagation();
                       onSelectProgram('coaching', `${categories[selectedTab].title} - ${plan.name}`);
                     }}
-                    className={`w-full py-2.5 rounded-xl font-sans text-xs tracking-wider uppercase font-semibold transition-colors cursor-pointer ${
-                      plan.isReset
-                        ? 'bg-[#D97706] text-white hover:bg-[#b86100]'
-                        : 'bg-[#1A3B32]/5 text-[#1A3B32] hover:bg-[#1A3B32]/10'
-                    }`}
+                    className={`w-full py-2.5 rounded-xl font-sans text-xs tracking-wider uppercase font-semibold transition-colors cursor-pointer ${plan.isReset
+                      ? 'bg-[#D97706] text-white hover:bg-[#b86100]'
+                      : 'bg-[#1A3B32]/5 text-[#1A3B32] hover:bg-[#1A3B32]/10'
+                      }`}
                   >
                     Select Plan
                   </button>

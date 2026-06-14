@@ -23,7 +23,6 @@ export default function DiscoveryForm({ initialProgramType = 'yoga-online', init
     (initialProgramType as 'yoga-online' | 'yoga-physical' | 'coaching' | 'corporate') || 'yoga-online'
   );
   const [selectedTierName, setSelectedTierName] = useState(initialTierName);
-  const [sessionPreference, setSessionPreference] = useState('Morning (6:30 - 7:30 AM)');
   const [message, setMessage] = useState('');
   const [copiedText, setCopiedText] = useState<'phone' | 'email' | null>(null);
 
@@ -77,7 +76,6 @@ export default function DiscoveryForm({ initialProgramType = 'yoga-online', init
       phone,
       programType,
       selectedTierName: selectedTierName || programsMap[programType],
-      sessionPreference,
       message,
       submittedAt: new Date().toLocaleDateString('en-IN', {
         day: 'numeric',
@@ -244,39 +242,7 @@ export default function DiscoveryForm({ initialProgramType = 'yoga-online', init
                 </div>
               )}
 
-              {/* Batch Preference Option */}
-              <div className="space-y-1.5">
-                <span className="text-xs font-mono font-bold text-[#1A3B32] flex items-center gap-2">
-                  <Clock className="w-3.5 h-3.5 text-[#D97706]" />
-                  Preferred Batch Timing Preference
-                </span>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {[
-                    'Morning (6:30 - 7:30 AM)',
-                    'Evening (7:30 - 8:30 PM)',
-                    'Coaching (Custom Timing Schedule)'
-                  ].map((timingOption) => (
-                    <label 
-                      key={timingOption}
-                      className={`flex items-center gap-2 p-3 rounded-lg border cursor-pointer transition-all ${
-                        sessionPreference === timingOption 
-                          ? 'border-[#1A3B32] bg-[#1A3B32]/5 font-semibold text-[#1A3B32]' 
-                          : 'border-[#1A3B32]/10 bg-white/50 text-zinc-650'
-                      }`}
-                    >
-                      <input 
-                        type="radio" 
-                        name="timing_preference" 
-                        value={timingOption}
-                        checked={sessionPreference === timingOption}
-                        onChange={() => setSessionPreference(timingOption)}
-                        className="accent-[#1A3B32]"
-                      />
-                      <span className="text-xs font-sans">{timingOption}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
+
 
               {/* Message field */}
               <div className="space-y-1.5">
@@ -299,7 +265,7 @@ export default function DiscoveryForm({ initialProgramType = 'yoga-online', init
                 className="w-full py-3 rounded-xl bg-[#1A3B32] hover:bg-[#255246] text-white font-sans text-xs font-bold tracking-widest uppercase transition-all duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Send className="w-4 h-4 text-[#D97706]" />
-                Proceed with Onboarding Booking
+                Schedule Discovery Call
               </button>
             </form>
           </div>
@@ -378,7 +344,7 @@ export default function DiscoveryForm({ initialProgramType = 'yoga-online', init
                         </span>
                       </div>
                       <p className="text-zinc-650 font-mono">
-                        {sub.selectedTierName}  •  {sub.sessionPreference}
+                        {sub.selectedTierName}
                       </p>
                       <p className="text-[10px] text-zinc-450 font-mono text-right">{sub.submittedAt}</p>
                     </div>

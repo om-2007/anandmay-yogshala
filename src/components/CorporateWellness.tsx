@@ -4,9 +4,9 @@
  */
 
 import React, { useState } from 'react';
-import { 
-  Building, Users, Sparkles, CheckSquare, 
-  HelpCircle, ChevronRight, Calculator, Laptop 
+import {
+  Building, Users, Sparkles, CheckSquare,
+  HelpCircle, ChevronRight, Calculator, Laptop
 } from 'lucide-react';
 
 interface CorporateWellnessProps {
@@ -48,7 +48,7 @@ export default function CorporateWellness({ onApplyForCEO, onApplyForWorkshop }:
   return (
     <section id="corporate" className="py-24 bg-[#EFECE6] border-t border-[#1A3B32]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-16 space-y-4">
           <span className="text-xs uppercase font-mono tracking-widest text-[#D97706] font-bold block">Sustainable Performance</span>
@@ -66,7 +66,7 @@ export default function CorporateWellness({ onApplyForCEO, onApplyForWorkshop }:
 
         {/* Column Split: Left: Workshops | Right: CEO Private Masterclass */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
-          
+
           {/* 1. Employee Wellness Workshops Column */}
           <div className="lg:col-span-6 bg-white/80 backdrop-blur-md p-8 rounded-2xl border border-[#1A3B32]/10 shadow-xs flex flex-col justify-between space-y-8">
             <div className="space-y-6">
@@ -116,13 +116,13 @@ export default function CorporateWellness({ onApplyForCEO, onApplyForWorkshop }:
                 <div className="space-y-1.5">
                   <span className="text-[10px] text-zinc-450 font-mono uppercase">Member Limit Range</span>
                   <div className="flex bg-[#1A3B32]/5 p-0.5 rounded-lg border border-[#1A3B32]/10">
-                    <button 
+                    <button
                       onClick={() => setMemberSize('50')}
                       className={`flex-1 py-1.5 text-[10px] font-mono rounded-md uppercase cursor-pointer ${memberSize === '50' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-550 hover:text-[#1A3B32]'}`}
                     >
                       15 - 50 List
                     </button>
-                    <button 
+                    <button
                       onClick={() => setMemberSize('150')}
                       className={`flex-1 py-1.5 text-[10px] font-mono rounded-md uppercase cursor-pointer ${memberSize === '150' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-550 hover:text-[#1A3B32]'}`}
                     >
@@ -135,13 +135,13 @@ export default function CorporateWellness({ onApplyForCEO, onApplyForWorkshop }:
                 <div className="space-y-1.5">
                   <span className="text-[10px] text-zinc-450 font-mono uppercase">Format Duration</span>
                   <div className="flex bg-[#1A3B32]/5 p-0.5 rounded-lg border border-[#1A3B32]/10">
-                    <button 
+                    <button
                       onClick={() => setDuration('half')}
                       className={`flex-1 py-1.5 text-[10px] font-mono rounded-md uppercase cursor-pointer ${duration === 'half' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-550 hover:text-[#1A3B32]'}`}
                     >
                       Half-Day
                     </button>
-                    <button 
+                    <button
                       onClick={() => setDuration('full')}
                       className={`flex-1 py-1.5 text-[10px] font-mono rounded-md uppercase cursor-pointer ${duration === 'full' ? 'bg-[#1A3B32] text-white font-bold' : 'text-zinc-550 hover:text-[#1A3B32]'}`}
                     >
@@ -179,7 +179,7 @@ export default function CorporateWellness({ onApplyForCEO, onApplyForWorkshop }:
           <div className="lg:col-span-6 bg-[#1A3B32] text-white p-8 rounded-[24px] border-2 border-[#D97706]/60 shadow-xl flex flex-col justify-between space-y-8 relative overflow-hidden">
             {/* Artistic gold background circular glow */}
             <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#D97706]/10 rounded-full blur-2xl pointer-events-none" />
-            
+
             <div className="space-y-6 relative z-10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -191,9 +191,6 @@ export default function CorporateWellness({ onApplyForCEO, onApplyForWorkshop }:
                     <h3 className="font-serif font-bold text-xl text-white">CEO & Founder 1:1 Programme</h3>
                   </div>
                 </div>
-                <span className="text-[9px] uppercase font-mono bg-[#D97706]/20 text-[#D97706] py-1 px-2.5 rounded-full border border-[#D97706]/20 font-extrabold tracking-widest">
-                  VIP ONLY
-                </span>
               </div>
 
               {/* Private Intro lines */}
@@ -211,7 +208,7 @@ export default function CorporateWellness({ onApplyForCEO, onApplyForWorkshop }:
                 <p className="text-[11px] text-stone-300 select-all leading-normal font-sans">
                   A deeply personalised, high-trust coaching engagement for founders and C-suite leaders combining yogic wisdom, life philosophy, and strategic clarity to help them lead at their highest level without losing themselves in the process.
                 </p>
-                
+
                 <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
                   <div className="flex items-start gap-1.5 text-[#D97706]">
                     <span className="w-1.5 h-1.5 rounded-full bg-[#D97706] mt-1.5" />
@@ -253,9 +250,6 @@ export default function CorporateWellness({ onApplyForCEO, onApplyForWorkshop }:
                 >
                   Request Application & Call
                 </button>
-                <div className="flex items-center justify-center gap-1.5 text-[9.5px] text-stone-400 font-mono">
-                  <span>*Note: Programme is by application only. Discover Call required.</span>
-                </div>
               </div>
             </div>
           </div>

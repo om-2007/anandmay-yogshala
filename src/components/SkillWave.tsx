@@ -601,10 +601,10 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
                   </div>
                   
                   <div className="text-center space-y-2">
-                    <span className="text-[10.5px] font-mono text-[#3A90E3] uppercase tracking-widest font-extrabold">Professional Anchor</span>
-                    <h3 className="font-sans font-bold text-lg text-white">Double-Wing Alignment</h3>
+                    <span className="text-[10.5px] font-mono text-[#3A90E3] uppercase tracking-widest font-extrabold">Career Mentorship</span>
+                    <h3 className="font-sans font-bold text-lg text-white">Personal Career Alignment</h3>
                     <p className="text-xs text-zinc-300 font-light leading-relaxed">
-                      Whether restoring physiological vitality at **Anandmay Yogshala** or engineering career trajectory blueprints at **SkillWave**, Abhishek remains committed to singular integrity. 
+                      Get direct, personalized coaching from Abhishek to build your confidence, improve soft skills, select your career path, and successfully prepare for modern industry interviews.
                     </p>
                   </div>
 
@@ -817,16 +817,21 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
           </div>
 
           {/* Subsection 3: Institutions & School programs */}
-          <div>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 pb-4 border-b border-zinc-200">
+          <div className="bg-gradient-to-br from-emerald-50/45 via-white to-teal-50/15 p-6 sm:p-10 rounded-[2.5rem] border border-emerald-500/20 shadow-xs mt-16 relative">
+            {/* Main Program Ribbon Badge */}
+            <div className="absolute top-0 right-8 -translate-y-1/2 bg-emerald-600 text-white font-mono text-[9px] uppercase tracking-widest font-extrabold px-3.5 py-1.5 rounded-full shadow-md border border-white/10">
+              ⭐ Main Program Initiative
+            </div>
+
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8 pb-4 border-b border-emerald-100">
               <div>
-                <h3 className="text-lg font-bold text-[#0F1E36] flex items-center gap-2">
-                  <span className="bg-emerald-100 text-emerald-700 w-6 h-6 rounded-md flex items-center justify-center text-xs">🏫</span>
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#0F1E36] flex items-center gap-2">
+                  <span className="bg-emerald-100 text-emerald-800 w-8 h-8 rounded-lg flex items-center justify-center text-sm shadow-xs">🏫</span>
                   School & Academy Transformation Programs
                 </h3>
-                <p className="text-xs text-zinc-550">Empowering Students, Supporting Teachers, Guiding Parents</p>
+                <p className="text-xs sm:text-sm text-zinc-650 mt-1 font-light">Empowering Students, Supporting Teachers, Guiding Parents</p>
               </div>
-              <span className="text-[10px] font-mono text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-100 mt-2 sm:mt-0 uppercase">
+              <span className="text-[10px] sm:text-xs font-mono text-emerald-700 bg-emerald-100/60 px-3 py-1.5 rounded-full border border-emerald-200 mt-2 sm:mt-0 uppercase font-extrabold tracking-wider">
                 Designed for institutional scale
               </span>
             </div>

@@ -21,9 +21,10 @@ interface TransformationItem {
 }
 
 export default function Transformation() {
-  const [activeCard, setActiveCard] = useState<string | null>('clarity');
+  const [activeCard, setActiveCard] = useState<string | null>('calm');
 
   const transformations: TransformationItem[] = [
+    /*
     {
       id: 'clarity',
       title: 'Clarity over Confusion',
@@ -34,6 +35,7 @@ export default function Transformation() {
       icon: Eye,
       color: '#D97706'
     },
+    */
     {
       id: 'calm',
       title: 'Calm over Chaos',

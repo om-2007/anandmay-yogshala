@@ -126,6 +126,7 @@ export default function AboutFounder() {
         </div>
 
         {/* Dual Companies & Leadership Portfolio */}
+        {false && (
         <div className="mt-20 border-t border-[#1A3B32]/10 pt-16">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-[10px] uppercase font-mono tracking-widest text-[#D97706] font-bold block mb-1">Ecosystem Leadership</span>
@@ -199,15 +200,28 @@ export default function AboutFounder() {
                 </p>
               </div>
               
-              <div className="mt-6 pt-4 border-t border-[#1A3B32]/10 flex items-center justify-between text-[10px] font-mono">
-                <span className="text-[#D97706] font-bold bg-[#D97706]/10 px-2.5 py-1 rounded-full border border-[#D97706]/20 uppercase">
-                  Awaiting Details
-                </span>
-                <span className="text-zinc-500 italic">Info to be added next!</span>
+              <div className="mt-6 pt-4 border-t border-[#1A3B32]/10 flex items-center justify-between text-xs">
+                <a
+                  href="/?mode=skillwave"
+                  onClick={(e) => {
+                    if (typeof window !== 'undefined') {
+                      e.preventDefault();
+                      const url = new URL(window.location.href);
+                      url.searchParams.set('mode', 'skillwave');
+                      window.history.pushState({ venture: 'skillwave' }, '', url.pathname + url.search);
+                      window.dispatchEvent(new Event('popstate'));
+                    }
+                  }}
+                  className="text-blue-600 hover:text-blue-800 font-semibold flex items-center gap-1 group transition-colors"
+                >
+                  <span>Explore SkillWave Career Mentorship</span>
+                  <span className="group-hover:translate-x-1 transition-transform inline-block">&rarr;</span>
+                </a>
               </div>
             </div>
           </div>
         </div>
+        )}
 
         {/* Pillars Section Grid "What we bring to every session" */}
         <div className="mt-28 border-t border-[#1A3B32]/10 pt-20">

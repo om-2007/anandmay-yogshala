@@ -6,8 +6,11 @@
 import React, { useState } from 'react';
 import { 
   Dribbble, Flame, Compass, Wind, Anchor, Target, Music, 
-  Clock, Users, AlertCircle, RefreshCw, HelpCircle 
+  Clock, Users, AlertCircle, RefreshCw, HelpCircle,
+  Brain, Activity
 } from 'lucide-react';
+
+type Category = 'Asana' | 'Pranayama & Mudra' | 'Mind & Reset';
 
 interface Practice {
   name: string;
@@ -17,10 +20,12 @@ interface Practice {
   icon: React.ComponentType<{ className?: string }>;
   accent: string;
   image: string;
+  category: Category;
 }
 
 export default function YogaPrograms() {
   const [selectedPractice, setSelectedPractice] = useState<number>(0);
+  const [activeCategory, setActiveCategory] = useState<Category>('Asana');
 
   const practices: Practice[] = [
     {
@@ -30,7 +35,8 @@ export default function YogaPrograms() {
       details: 'Hatha yoga is the foundation of all physical yoga. In our sessions, we emphasize spinal length, weight balance, and clean skeletal alignment. Ideal for developing physical discipline, correcting posture, and building raw strength from the feet up.',
       icon: Anchor,
       accent: 'border-[#1A3B32]/10 bg-[#1A3B32]/10 text-[#1A3B32]',
-      image: '/hatha-yoga.jpg'
+      image: '/hatha-yoga.jpg',
+      category: 'Asana'
     },
     {
       name: 'Ashtanga Yoga',
@@ -39,7 +45,8 @@ export default function YogaPrograms() {
       details: 'This is a dynamic, structured sequencing style designed to heat the body, release muscular tension, and build deep stamina. Every stretch is coordinated with continuous flow, refining body architecture and cardiovascular response.',
       icon: Flame,
       accent: 'border-[#D97706]/20 bg-[#D97706]/10 text-[#D97706]',
-      image: '/ashtanga-yoga.jpg'
+      image: '/ashtanga-yoga.jpg',
+      category: 'Asana'
     },
     {
       name: 'Vinyasa Yoga',
@@ -48,7 +55,8 @@ export default function YogaPrograms() {
       details: 'Vinyasa coordinates fluid postures with rhythmic breath, creating a meditative, continuous dance. This practice trains spatial coordination, joint flexibility, and cardiac pacing, inducing deep emotional release.',
       icon: Compass,
       accent: 'border-[#D97706]/20 bg-[#D97706]/10 text-[#D97706]',
-      image: '/vinyasa-yoga.jpg'
+      image: '/vinyasa-yoga.jpg',
+      category: 'Asana'
     },
     {
       name: 'Pranayama',
@@ -57,7 +65,8 @@ export default function YogaPrograms() {
       details: 'Pranayama is the science of breath regulation. Learn techniques like Anulom Vilom, Kapalbhati, and Bhastrika to regulate oxygen saturation, shift your autonomic nervous system from high-stress to rest, and clear immediate anxiety.',
       icon: Wind,
       accent: 'border-[#1A3B32]/10 bg-[#1A3B32]/15 text-[#1A3B32]',
-      image: '/pranayama.jpg'
+      image: '/pranayama.jpg',
+      category: 'Pranayama & Mudra'
     },
     {
       name: 'Bandhas & Mudras',
@@ -66,7 +75,8 @@ export default function YogaPrograms() {
       details: 'Bandhas (Mula, Uddiyana, Jalandhara) represent core muscular locks that contain and redirect pranic energy, stabilizing posture structures. Combined with mudras (hand gestures), they train micro-attention and assist deep brain focus.',
       icon: Target,
       accent: 'border-[#1A3B32]/10 bg-[#1A3B32]/10 text-[#1A3B32]',
-      image: '/bandhas-mudras.jpg'
+      image: '/bandhas-mudras.jpg',
+      category: 'Pranayama & Mudra'
     },
     {
       name: 'Meditation & Mind Training',
@@ -75,7 +85,8 @@ export default function YogaPrograms() {
       details: 'We do not ask you to simply "stop thinking." We provide active, progressive mental tools grounded in Dharana (focused concentration). Learn to step back from wild emotional thoughts, analyze mind states objectively, and find calm.',
       icon: Users,
       accent: 'border-[#D97706]/20 bg-[#D97706]/10 text-[#D97706]',
-      image: '/meditation.jpg'
+      image: '/meditation.jpg',
+      category: 'Mind & Reset'
     },
     {
       name: 'Sound Healing',
@@ -84,126 +95,192 @@ export default function YogaPrograms() {
       details: 'High-frequency acoustic vibrations from Himalayan singing bowls are built directly into selected relaxation units. These sound waves prompt a deep neurological reset, promoting effortless parasympathetic recovery and peaceful restorative rest.',
       icon: Music,
       accent: 'border-[#1A3B32]/20 bg-[#1A3B32]/10 text-[#1A3B32]',
-      image: '/sound-healing.jpg'
+      image: '/sound-healing.jpg',
+      category: 'Mind & Reset'
     }
+  ];  const handleCategoryChange = (cat: Category) => {
+    setActiveCategory(cat);
+    const firstInCat = practices.findIndex(p => p.category === cat);
+    if (firstInCat !== -1) {
+      setSelectedPractice(firstInCat);
+    }
+  };
+
+  const categories: { name: Category; label: string; sub: string; icon: React.ComponentType<{ className?: string }> }[] = [
+    { name: 'Asana', label: 'Asana', sub: 'Body & Stability', icon: Activity },
+    { name: 'Pranayama & Mudra', label: 'Pranayama & Mudra', sub: 'Breath & Energy', icon: Wind },
+    { name: 'Mind & Reset', label: 'Mind & Reset', sub: 'Meditation & Sound Reset', icon: Brain }
   ];
 
   return (
-    <section id="practices" className="py-24 bg-[#EFECE6] border-t border-[#1A3B32]/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="practices" className="py-12 lg:py-16 bg-[#EFECE6] border-t border-[#1A3B32]/10 relative overflow-hidden">
+      {/* Immersive Background Image of selected practice */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <img 
+          src={practices[selectedPractice].image} 
+          alt={practices[selectedPractice].name} 
+          className="w-full h-full object-cover transition-all duration-1000"
+          style={{ objectPosition: 'center' }}
+        />
+        {/* Responsive Cream overlays: Solid/vertical fade on mobile, side-fade on desktop */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#EFECE6]/95 via-[#EFECE6]/85 to-[#EFECE6]/95 lg:hidden" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-r from-[#EFECE6]/92 via-[#EFECE6]/75 to-transparent" />
+        <div className="absolute inset-0 hidden lg:block bg-gradient-to-b from-[#EFECE6]/10 via-transparent to-[#EFECE6]/10" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Intro Section Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16 pb-8 border-b border-[#1A3B32]/10">
-          <div className="lg:col-span-5">
-            <span className="text-xs uppercase font-mono tracking-widest text-[#D97706] font-bold block mb-2">Our Curated Methods</span>
-            <h2 className="font-serif font-bold text-3xl sm:text-4xl text-[#1A3B32] tracking-tight">
-              Yoga & Holistic Health
-            </h2>
-            <div className="w-12 h-1 bg-[#D97706] mt-4 rounded-full" />
-          </div>
-          <div className="lg:col-span-7 space-y-4 text-sm text-[#1A3B32]">
-            <p className="font-semibold text-base text-[#1A3B32]">
-              The sessions here are structured, but not rigid. Each class moves through breath, body, and awareness in a sequence designed for all levels.
-            </p>
-            <p className="text-zinc-700 leading-relaxed font-sans">
-              Practices draw from Hatha, Ashtanga, and Vinyasa traditions, combined with Pranayama breath work, Bandhas, Mudras, and guided meditation. Sound healing is woven into certain sessions. The combination is intentional—physical mobility, nervous system regulation, and mental training, all in one hour.
-            </p>
-          </div>
-        </div>
-
-        {/* Practices Covered Interactive Grid */}
-        <div className="space-y-6">
-          <div className="flex flex-col lg:flex-row items-center justify-between">
-            <h3 className="font-serif font-bold text-xl text-[#1A3B32] mb-4 lg:mb-0">
-              Practices Covered
-            </h3>
-            <span className="text-xs text-zinc-500 font-mono italic">
-              *Click any practice tab to inspect active details & core benefits
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Practices list selectors */}
-            <div className="lg:col-span-5 flex flex-col gap-3">
-              {practices.map((practice, index) => {
-                const IconComp = practice.icon;
-                const isSelected = selectedPractice === index;
-                return (
-                  <button
-                    key={index}
-                    onClick={() => setSelectedPractice(index)}
-                    className={`w-full text-left p-4 rounded-xl border transition-all duration-300 cursor-pointer ${
-                      isSelected
-                        ? 'bg-white border-[#D97706] shadow-sm ring-1 ring-[#D97706]'
-                        : 'bg-white/60 border-[#1A3B32]/10 hover:border-[#1A3B32] text-zinc-500 hover:bg-white'
-                    }`}
-                  >
-                    <div className="flex items-center gap-3">
-                      <div className={`p-2 rounded-lg ${practice.accent}`}>
-                        <IconComp className="w-5 h-5 flex-shrink-0" />
-                      </div>
-                      <div>
-                        <h4 className="font-serif text-sm font-bold text-[#1A3B32]">{practice.name}</h4>
-                        <p className="text-[10px] text-zinc-500 font-sans mt-0.5">{practice.sub}</p>
-                      </div>
-                    </div>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Selected practice detailed display card */}
-            <div className="lg:col-span-7 bg-white/80 backdrop-blur-md p-8 rounded-2xl border border-[#1A3B32]/10 shadow-xs flex flex-col justify-between">
-              {(() => {
-                const practice = practices[selectedPractice];
-                const IconComp = practice.icon;
-                return (
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between border-b border-[#1A3B32]/10 pb-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-lg ${practice.accent}`}>
-                          <IconComp className="w-6 h-6" />
-                        </div>
-                        <div>
-                          <p className="text-[10px] uppercase font-mono tracking-widest text-[#D97706]">Focus Tradition</p>
-                          <h4 className="font-serif font-bold text-lg text-[#1A3B32]">{practice.name}</h4>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Beautiful, Serene Image for Practice */}
-                    <div className="relative w-full h-auto rounded-xl overflow-hidden shadow-xs border border-[#1A3B32]/10">
-                      <img 
-                        src={practice.image} 
-                        alt={practice.name} 
-                        referrerPolicy="no-referrer"
-                        className="w-full h-auto transition-transform duration-700 hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#1A3B32]/25 via-transparent to-transparent pointer-events-none" />
-                    </div>
-
-                    <div className="space-y-4">
-                      <p className="font-serif italic text-[#1A3B32] text-base font-medium">
-                        &ldquo;{practice.desc}&rdquo;
-                      </p>
-                      <p className="text-sm text-zinc-700 leading-relaxed font-sans font-light">
-                        {practice.details}
-                      </p>
-                    </div>
-
-                    <div className="pt-4 border-t border-[#1A3B32]/10">
-                      <span className="text-[10px] uppercase font-mono tracking-widest text-zinc-500 font-bold block mb-2">Practice Standard</span>
-                      <div className="flex flex-wrap gap-2">
-                        <span className="text-[10px] font-sans font-medium text-[#1A3B32] bg-[#1A3B32]/10 px-2.5 py-1 rounded-full border border-[#1A3B32]/10">All Skill Levels</span>
-                        <span className="text-[10px] font-sans font-medium text-[#D97706] bg-[#D97706]/10 px-2.5 py-1 rounded-full border border-[#D97706]/10">Gita Grounded</span>
-                        <span className="text-[10px] font-sans font-medium text-[#1A3B32] bg-[#1A3B32]/5 px-2.5 py-1 rounded-full">Somatic Reset</span>
-                      </div>
-                    </div>
+        {/* Split-Screen Dashboard Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          
+          {/* Left Column: Practice Narratives (lg:col-span-7) */}
+          <div className="lg:col-span-7 text-left space-y-5">
+            {(() => {
+              const practice = practices[selectedPractice];
+              const IconComp = practice.icon;
+              return (
+                <div className="space-y-4">
+                  {/* Section Title merged inside left narrative column */}
+                  <div className="space-y-1 pb-3 border-b border-[#1A3B32]/10">
+                    <span className="text-[10px] uppercase font-mono tracking-widest text-[#D97706] font-bold block">
+                      Our Curated Methods
+                    </span>
+                    <h2 className="font-serif font-bold text-2xl sm:text-3xl text-[#1A3B32] tracking-tight">
+                      Practices Covered
+                    </h2>
+                    <p className="text-xs text-zinc-650 font-sans leading-normal">
+                      Each session moves through breath, body, and awareness in a sequence designed for all levels.
+                    </p>
                   </div>
-                );
-              })()}
+
+                  {/* Category and Practice Badge */}
+                  <div className="inline-flex items-center gap-1.5 bg-[#1A3B32]/10 text-[#1A3B32] px-2.5 py-0.5 rounded-full text-[9px] font-mono tracking-widest uppercase font-bold border border-[#1A3B32]/15">
+                    <IconComp className="w-3 h-3 text-[#D97706]" />
+                    <span>{practice.category} Practice</span>
+                  </div>
+
+                  {/* Practice Name */}
+                  <h3 className="font-serif font-bold text-xl sm:text-2xl text-[#1A3B32] tracking-tight transition-all duration-300">
+                    {practice.name}
+                  </h3>
+                  
+                  {/* Subtitle */}
+                  <p className="text-xs font-mono text-[#D97706] font-bold uppercase tracking-wider -mt-2.5">
+                    {practice.sub}
+                  </p>
+
+                  {/* Core Description Paragraphs */}
+                  <div className="text-xs sm:text-sm text-zinc-750 font-normal leading-relaxed">
+                    <p>{practice.details}</p>
+                  </div>
+
+                  {/* Practice Quote box */}
+                  <div className="bg-[#EFECE6]/80 border-l-4 border-[#D97706] p-3.5 rounded-r-xl border-y border-r border-[#1A3B32]/10 max-w-2xl shadow-xs">
+                    <p className="font-serif italic text-xs sm:text-sm text-[#1A3B32] leading-relaxed">
+                      &ldquo;{practice.desc}&rdquo;
+                    </p>
+                  </div>
+
+                  {/* Highlight standard boxes as compact inline tags */}
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-[#1A3B32]/10">
+                    <span className="text-[10px] font-semibold text-[#1A3B32] bg-white/40 px-2.5 py-1 rounded-md border border-[#1A3B32]/10 shadow-xs">All Skill Levels</span>
+                    <span className="text-[10px] font-semibold text-[#D97706] bg-amber-50/40 px-2.5 py-1 rounded-md border border-[#D97706]/20 shadow-xs">Gita Grounded Context</span>
+                    <span className="text-[10px] font-semibold text-[#1A3B32] bg-white/40 px-2.5 py-1 rounded-md border border-stone-200 shadow-xs">Somatic Alignment</span>
+                  </div>
+                </div>
+              );
+            })()}
+          </div>
+
+          {/* Right Column: Floating control selector card (lg:col-span-5) */}
+          <div className="lg:col-span-5 w-full">
+            <div className="bg-[#1A3B32] text-white p-5 sm:p-6 rounded-[2rem] shadow-xl border border-white/10 relative overflow-hidden flex flex-col justify-between hover:shadow-2xl transition-all duration-500">
+              <div className="absolute top-0 right-0 w-24 h-24 bg-[#D97706]/10 rounded-full blur-xl pointer-events-none" />
+              
+              <div className="space-y-4">
+                
+                {/* Category Switching Pills */}
+                <div className="flex bg-black/25 p-1 rounded-xl border border-white/5">
+                  {categories.map((cat) => {
+                    const isActive = activeCategory === cat.name;
+                    // Format category name for small tabs
+                    const shortLabel = cat.name === 'Pranayama & Mudra' ? 'Pranayama' : cat.name === 'Mind & Reset' ? 'Mind' : 'Asana';
+                    return (
+                      <button
+                        key={cat.name}
+                        onClick={() => handleCategoryChange(cat.name)}
+                        className={`flex-1 py-1.5 text-[10px] sm:text-xs uppercase font-mono tracking-wider font-extrabold rounded-lg text-center cursor-pointer transition-all duration-300 ${
+                          isActive 
+                            ? 'bg-[#D97706] text-white shadow-md' 
+                            : 'text-stone-300 hover:text-white hover:bg-white/5'
+                        }`}
+                      >
+                        {shortLabel}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Card Title Header (Compact) */}
+                <div className="text-center pt-1">
+                  <span className="text-[9px] uppercase font-mono text-[#D97706] tracking-widest block font-bold">
+                    Select Practice Flow
+                  </span>
+                  <h4 className="font-serif font-bold text-base text-white mt-0.5">
+                    {activeCategory} Traditions
+                  </h4>
+                </div>
+
+                {/* Sub-practice List selection list (Compact padding) */}
+                <div className="space-y-1.5">
+                  {practices
+                    .map((p, idx) => ({ ...p, originalIndex: idx }))
+                    .filter(p => p.category === activeCategory)
+                    .map((practice) => {
+                      const IconComp = practice.icon;
+                      const isSelected = selectedPractice === practice.originalIndex;
+                      return (
+                        <button
+                          key={practice.originalIndex}
+                          onClick={() => setSelectedPractice(practice.originalIndex)}
+                          className={`w-full p-2.5 rounded-xl border transition-all duration-300 text-left flex items-center gap-3 cursor-pointer group ${
+                            isSelected
+                              ? 'bg-white/10 border-[#D97706] text-white shadow-xs'
+                              : 'bg-transparent border-white/10 text-stone-300 hover:bg-white/5 hover:border-white/20'
+                          }`}
+                        >
+                          <div className={`p-1.5 rounded-lg transition-transform duration-300 ${
+                            isSelected
+                              ? 'bg-[#D97706]/20 text-[#D97706]'
+                              : 'bg-white/5 text-white border border-white/5 group-hover:scale-105'
+                          }`}>
+                            <IconComp className="w-3.5 h-3.5" />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h5 className="font-serif font-bold text-xs sm:text-sm leading-tight text-white">{practice.name}</h5>
+                            <p className="text-[9px] text-stone-400 font-sans truncate mt-0.5">{practice.sub}</p>
+                          </div>
+                        </button>
+                      );
+                    })}
+                </div>
+              </div>
+
+              {/* Inquire CTA Button */}
+              <div className="pt-4 border-t border-white/10 mt-5">
+                <a 
+                  href="https://wa.me/919623846669?text=Hello%20Abhishek,%20I%20am%20interested%20in%20the%20Yoga%20programs%20at%20Anandmay%20Yogshala."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 bg-[#D97706] hover:bg-[#c26a05] text-white text-center rounded-xl text-xs uppercase font-mono tracking-widest font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+                >
+                  <span>Inquire directly on WhatsApp</span>
+                  <span className="font-sans font-light">&gt;</span>
+                </a>
+              </div>
             </div>
           </div>
+
         </div>
 
         {/* Batch timings area */}
