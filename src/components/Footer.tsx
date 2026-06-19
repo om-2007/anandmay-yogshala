@@ -104,8 +104,8 @@ export default function Footer({ activeVenture }: FooterProps) {
               {/* Anandmay Yogshala Brand block */}
               <div className="space-y-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 flex-shrink-0">
-                    <AnandmayLogo className="w-full h-full" />
+                  <div className="h-14 w-auto flex-shrink-0">
+                    <AnandmayLogo className="h-full w-auto" />
                   </div>
                   <div>
                     <span className="font-serif font-bold text-sm tracking-wider block leading-tight text-[#FAF8F5]">

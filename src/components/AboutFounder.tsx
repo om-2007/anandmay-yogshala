@@ -143,8 +143,8 @@ export default function AboutFounder() {
             <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl border border-[#1A3B32]/10 hover:border-[#1A3B32]/25 hover:shadow-md transition-all duration-300 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 flex-shrink-0">
-                    <AnandmayLogo className="w-full h-full" />
+                  <div className="h-16 w-auto flex-shrink-0">
+                    <AnandmayLogo className="h-full w-auto" />
                   </div>
                   <div>
                     <h4 className="font-serif font-bold text-lg text-[#1A3B32] leading-none">

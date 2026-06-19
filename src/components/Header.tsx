@@ -90,7 +90,7 @@ export default function Header({ onBookClick, activeVenture, onVentureChange }: 
                   : 'bg-white/5 text-stone-300 hover:text-white border border-white/10'
               }`}
             >
-              <AnandmayLogo className="w-3.5 h-3.5" />
+              <AnandmayLogo className="h-5 w-auto" />
               <span>Anandmay Yogshala</span>
             </button>
             
@@ -138,8 +138,10 @@ export default function Header({ onBookClick, activeVenture, onVentureChange }: 
           >
             {activeVenture === 'anandmay' ? (
               <>
-                <div className="w-10 h-10 group-hover:scale-105 transition-transform duration-300">
-                  <AnandmayLogo className="w-full h-full" />
+                <div className={`transition-all duration-300 group-hover:scale-105 flex items-center justify-center ${
+                  isScrolled ? 'h-12 sm:h-14' : 'h-16 sm:h-18'
+                }`}>
+                  <AnandmayLogo className="h-full w-auto object-contain" />
                 </div>
                 <div>
                   <span className="font-serif font-bold text-lg md:text-xl tracking-wider text-[#1A3B32] block leading-tight">
