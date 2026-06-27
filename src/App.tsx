@@ -16,6 +16,8 @@ import CorporateWellness from './components/CorporateWellness';
 import DiscoveryForm from './components/DiscoveryForm';
 import Footer from './components/Footer';
 import SkillWave from './components/SkillWave';
+import TestimonialsYoga from './components/TestimonialsYoga';
+import Gallery from './components/Gallery';
 
 const getInitialVenture = (): 'anandmay' | 'skillwave' => {
   if (typeof window !== 'undefined') {
@@ -28,20 +30,40 @@ const getInitialVenture = (): 'anandmay' | 'skillwave' => {
   return 'anandmay';
 };
 
+const getInitialPage = (): 'home' | 'gallery' => {
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get('page');
+    if (page === 'gallery') {
+      return 'gallery';
+    }
+  }
+  return 'home';
+};
+
 export default function App() {
   const [selectedProgramType, setSelectedProgramType] = useState<'yoga-online' | 'yoga-physical' | 'coaching' | 'corporate'>('yoga-online');
   const [selectedTierName, setSelectedTierName] = useState('');
   const [activeVenture, setActiveVenture] = useState<'anandmay' | 'skillwave'>(getInitialVenture);
+  const [activePage, setActivePage] = useState<'home' | 'gallery'>(getInitialPage);
 
   // Sync state if browser back/forward buttons are pressed
   useEffect(() => {
     const handlePopState = () => {
       const params = new URLSearchParams(window.location.search);
       const mode = params.get('mode');
+      const page = params.get('page');
+      
       if (mode === 'skillwave' || mode === 'anandmay') {
         setActiveVenture(mode);
       } else {
         setActiveVenture('anandmay');
+      }
+
+      if (page === 'gallery') {
+        setActivePage('gallery');
+      } else {
+        setActivePage('home');
       }
     };
     window.addEventListener('popstate', handlePopState);
@@ -79,7 +101,26 @@ export default function App() {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       url.searchParams.set('mode', venture);
-      window.history.pushState({ venture }, '', url.pathname + url.search);
+      if (activePage === 'gallery') {
+        url.searchParams.set('page', 'gallery');
+      } else {
+        url.searchParams.delete('page');
+      }
+      window.history.pushState({ venture, page: activePage }, '', url.pathname + url.search);
+    }
+  };
+
+  // Set active page and update address bar without reloading
+  const handlePageChange = (page: 'home' | 'gallery') => {
+    setActivePage(page);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (page === 'gallery') {
+        url.searchParams.set('page', 'gallery');
+      } else {
+        url.searchParams.delete('page');
+      }
+      window.history.pushState({ venture: activeVenture, page }, '', url.pathname + url.search);
     }
   };
 
@@ -142,11 +183,15 @@ export default function App() {
         onBookClick={handleGlobalBookClick} 
         activeVenture={activeVenture} 
         onVentureChange={handleVentureChange}
+        activePage={activePage}
+        onChangePage={handlePageChange}
       />
 
       {/* Main Sections */}
       <main>
-        {activeVenture === 'anandmay' ? (
+        {activePage === 'gallery' ? (
+          <Gallery activeVenture={activeVenture} onBackToHome={() => handlePageChange('home')} />
+        ) : activeVenture === 'anandmay' ? (
           <>
             {/* Hero Banner Section */}
             <Hero 
@@ -177,6 +222,9 @@ export default function App() {
               onApplyForCEO={() => handleProgramSelection('corporate', 'CEO & Founder 1:1 Masterclass (6 Months / Lifetime Reset)')}
               onApplyForWorkshop={(specs) => handleProgramSelection('corporate', specs)}
             />
+
+            {/* Student Testimonials & Social Proof */}
+            <TestimonialsYoga />
 
             {/* Fully operational scheduling Form */}
             <DiscoveryForm 

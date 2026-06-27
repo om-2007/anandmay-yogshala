@@ -1,0 +1,1 @@
+Save SkillWave career, school programs, and student mentorship event images in this directory. They will load dynamically on the site's Career gallery!

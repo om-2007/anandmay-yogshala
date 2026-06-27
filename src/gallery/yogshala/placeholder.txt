@@ -1,0 +1,1 @@
+Save Anandmay Yogshala event and session images in this directory. They will load dynamically on the site's Yoga gallery!

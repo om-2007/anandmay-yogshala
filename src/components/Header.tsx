@@ -11,9 +11,11 @@ interface HeaderProps {
   onBookClick: () => void;
   activeVenture: 'anandmay' | 'skillwave';
   onVentureChange: (venture: 'anandmay' | 'skillwave') => void;
+  activePage: 'home' | 'gallery';
+  onChangePage: (page: 'home' | 'gallery') => void;
 }
 
-export default function Header({ onBookClick, activeVenture, onVentureChange }: HeaderProps) {
+export default function Header({ onBookClick, activeVenture, onVentureChange, activePage, onChangePage }: HeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileAboutOpen, setIsMobileAboutOpen] = useState(false);
@@ -39,15 +41,43 @@ export default function Header({ onBookClick, activeVenture, onVentureChange }: 
     { label: 'Yoga Programs', targetId: 'programs' },
     { label: 'Life Coaching', targetId: 'coaching' },
     { label: 'Corporate Wellness', targetId: 'corporate' },
+    { label: 'Testimonials', targetId: 'testimonials' },
+    { label: 'Gallery', targetId: 'gallery' },
   ] : [
     { label: 'Philosophy', targetId: 'sw-philosophy' },
     { label: 'Framework', targetId: 'sw-vision' },
     { label: 'Mentor', targetId: 'sw-founder' },
     { label: 'Programs & Prices', targetId: 'sw-programs' },
+    { label: 'Testimonials', targetId: 'sw-testimonials' },
+    { label: 'Gallery', targetId: 'gallery' },
   ];
 
   const handleNavClick = (targetId: string) => {
     setIsMobileMenuOpen(false);
+    
+    if (targetId === 'gallery') {
+      onChangePage('gallery');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      return;
+    }
+    
+    if (activePage === 'gallery') {
+      onChangePage('home');
+      setTimeout(() => {
+        const element = document.getElementById(targetId);
+        if (element) {
+          const offset = 120;
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = element.getBoundingClientRect().top;
+          window.scrollTo({
+            top: (elementRect - bodyRect) - offset,
+            behavior: 'smooth'
+          });
+        }
+      }, 50);
+      return;
+    }
+
     const element = document.getElementById(targetId);
     if (element) {
       const offset = 120; // height with ecosystem topbar
@@ -190,6 +220,18 @@ export default function Header({ onBookClick, activeVenture, onVentureChange }: 
                     >
                       Practices
                     </button>
+                    <button
+                      onClick={() => handleNavClick('testimonials')}
+                      className="w-full text-left px-4 py-2 text-xs font-bold text-zinc-700 hover:bg-[#F5F2ED] hover:text-[#D97706] transition-colors"
+                    >
+                      Testimonials
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('gallery')}
+                      className="w-full text-left px-4 py-2 text-xs font-bold text-zinc-700 hover:bg-[#F5F2ED] hover:text-[#D97706] transition-colors"
+                    >
+                      Gallery
+                    </button>
                   </div>
                 </div>
 
@@ -236,16 +278,67 @@ export default function Header({ onBookClick, activeVenture, onVentureChange }: 
                 </button>
               </>
             ) : (
-              // SkillWave Menu Items
-              navItems.map((item) => (
+              <>
+                {/* About Dropdown */}
+                <div className="relative group py-2">
+                  <button
+                    className="text-sm font-semibold tracking-tight cursor-pointer transition-colors duration-200 py-1 font-sans flex items-center gap-1 text-[#0F1E36] hover:text-blue-600 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:transition-all after:duration-300 after:bg-blue-600 hov_line"
+                  >
+                    About
+                    <svg className="w-3.5 h-3.5 transition-transform duration-200 group-hover:rotate-180 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div className="absolute left-1/2 -translate-x-1/2 mt-1 w-44 rounded-xl shadow-lg bg-white border border-stone-200/60 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 py-1.5">
+                    <button
+                      onClick={() => handleNavClick('sw-philosophy')}
+                      className="w-full text-left px-4 py-2 text-xs font-bold text-zinc-700 hover:bg-zinc-50 hover:text-blue-600 transition-colors"
+                    >
+                      Philosophy
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('sw-vision')}
+                      className="w-full text-left px-4 py-2 text-xs font-bold text-zinc-700 hover:bg-zinc-50 hover:text-blue-600 transition-colors"
+                    >
+                      Framework
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('sw-founder')}
+                      className="w-full text-left px-4 py-2 text-xs font-bold text-zinc-700 hover:bg-zinc-50 hover:text-blue-600 transition-colors"
+                    >
+                      Mentor
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('sw-testimonials')}
+                      className="w-full text-left px-4 py-2 text-xs font-bold text-zinc-700 hover:bg-zinc-50 hover:text-blue-600 transition-colors"
+                    >
+                      Testimonials
+                    </button>
+                    <button
+                      onClick={() => handleNavClick('gallery')}
+                      className="w-full text-left px-4 py-2 text-xs font-bold text-zinc-700 hover:bg-zinc-50 hover:text-blue-600 transition-colors"
+                    >
+                      Gallery
+                    </button>
+                  </div>
+                </div>
+
+                {/* Programs & Prices */}
                 <button
-                  key={item.targetId}
-                  onClick={() => handleNavClick(item.targetId)}
-                  className="text-sm font-semibold tracking-tight cursor-pointer transition-colors duration-200 py-1 font-sans relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:transition-all after:duration-300 text-[#0F1E36] hover:text-blue-600 after:bg-blue-600 hov_line"
+                  onClick={() => handleNavClick('sw-programs')}
+                  className="text-sm font-semibold tracking-tight cursor-pointer transition-colors duration-200 py-1 font-sans text-[#0F1E36] hover:text-blue-600 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:transition-all after:duration-300 after:bg-blue-600 hov_line"
                 >
-                  {item.label}
+                  Programs & Prices
                 </button>
-              ))
+
+                {/* Contact */}
+                <button
+                  onClick={() => handleNavClick('booking')}
+                  className="text-sm font-semibold tracking-tight cursor-pointer transition-colors duration-200 py-1 font-sans text-[#0F1E36] hover:text-blue-600 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:transition-all after:duration-300 after:bg-blue-600 hov_line"
+                >
+                  Contact
+                </button>
+              </>
             )}
           </nav>
 
@@ -334,12 +427,24 @@ export default function Header({ onBookClick, activeVenture, onVentureChange }: 
                       >
                         Founder
                       </button>
-                      <button
-                        onClick={() => handleNavClick('practices')}
-                        className="text-left text-sm font-semibold text-zinc-600 hover:text-[#D97706] py-1"
-                      >
-                        Practices
-                      </button>
+                       <button
+                         onClick={() => handleNavClick('practices')}
+                         className="text-left text-sm font-semibold text-zinc-600 hover:text-[#D97706] py-1"
+                       >
+                         Practices
+                       </button>
+                       <button
+                         onClick={() => handleNavClick('testimonials')}
+                         className="text-left text-sm font-semibold text-zinc-600 hover:text-[#D97706] py-1"
+                       >
+                         Testimonials
+                       </button>
+                       <button
+                         onClick={() => handleNavClick('gallery')}
+                         className="text-left text-sm font-semibold text-zinc-600 hover:text-[#D97706] py-1"
+                       >
+                         Gallery
+                       </button>
                     </div>
                   )}
                 </div>
@@ -391,15 +496,70 @@ export default function Header({ onBookClick, activeVenture, onVentureChange }: 
               </>
             ) : (
               // SkillWave Mobile Menu Items
-              navItems.map((item) => (
+              <>
+                {/* About Accordion */}
+                <div className="border-b border-zinc-100 py-2">
+                  <button
+                    onClick={() => setIsMobileAboutOpen(!isMobileAboutOpen)}
+                    className="w-full flex items-center justify-between font-semibold text-left text-[#0F1E36] hover:text-blue-600"
+                  >
+                    <span>About</span>
+                    <svg className={`w-4 h-4 transition-transform duration-200 ${isMobileAboutOpen ? 'rotate-180' : ''} text-zinc-400`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  {isMobileAboutOpen && (
+                    <div className="pl-4 mt-2 flex flex-col gap-2.5 pb-1">
+                      <button
+                        onClick={() => handleNavClick('sw-philosophy')}
+                        className="text-left text-sm font-semibold text-zinc-600 hover:text-blue-600 py-1"
+                      >
+                        Philosophy
+                      </button>
+                      <button
+                        onClick={() => handleNavClick('sw-vision')}
+                        className="text-left text-sm font-semibold text-zinc-600 hover:text-blue-600 py-1"
+                      >
+                        Framework
+                      </button>
+                      <button
+                        onClick={() => handleNavClick('sw-founder')}
+                        className="text-left text-sm font-semibold text-zinc-600 hover:text-blue-600 py-1"
+                      >
+                        Mentor
+                      </button>
+                      <button
+                        onClick={() => handleNavClick('sw-testimonials')}
+                        className="text-left text-sm font-semibold text-zinc-600 hover:text-blue-600 py-1"
+                      >
+                        Testimonials
+                      </button>
+                      <button
+                        onClick={() => handleNavClick('gallery')}
+                        className="text-left text-sm font-semibold text-zinc-600 hover:text-blue-600 py-1"
+                      >
+                        Gallery
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {/* Programs & Prices */}
                 <button
-                  key={item.targetId}
-                  onClick={() => handleNavClick(item.targetId)}
+                  onClick={() => handleNavClick('sw-programs')}
                   className="font-semibold text-left py-2 border-b transition-all duration-200 text-[#0F1E36] hover:text-blue-600 border-zinc-100"
                 >
-                  {item.label}
+                  Programs & Prices
                 </button>
-              ))
+
+                {/* Contact */}
+                <button
+                  onClick={() => handleNavClick('booking')}
+                  className="font-semibold text-left py-2 border-b transition-all duration-200 text-[#0F1E36] hover:text-blue-600 border-zinc-100"
+                >
+                  Contact
+                </button>
+              </>
             )}
             <div className="pt-2 flex flex-col gap-3">
               <button

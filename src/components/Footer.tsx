@@ -131,7 +131,8 @@ export default function Footer({ activeVenture }: FooterProps) {
                   { name: 'Practices', id: 'practices' },
                   { name: 'Programs', id: 'programs' },
                   { name: 'Coaching', id: 'coaching' },
-                  { name: 'Corporate', id: 'corporate' }
+                  { name: 'Corporate', id: 'corporate' },
+                  { name: 'Testimonials', id: 'testimonials' }
                 ].map((link) => (
                   <li key={link.name}>
                     <button

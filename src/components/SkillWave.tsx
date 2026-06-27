@@ -3,12 +3,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, CheckCircle2, ArrowRight, Compass, Target, 
   TrendingUp, Award, HelpCircle, Users, BookOpen, 
-  MessageSquare, Send, ChevronRight, GraduationCap,
-  ShieldCheck, Smartphone, Check, Briefcase
+  MessageSquare, Send, ChevronRight, ChevronLeft, GraduationCap,
+  ShieldCheck, Smartphone, Check, Briefcase, Star, Quote
 } from 'lucide-react';
 import { SkillWaveLogo } from './Logos';
 
@@ -19,6 +19,107 @@ interface SkillWaveProps {
 export default function SkillWave({ onBookClick }: SkillWaveProps) {
   const [selectedDuration, setSelectedDuration] = useState<'3m' | '6m'>('3m');
   const [whatsappMessage, setWhatsappMessage] = useState('Hello, I would like to book a Career Guidance session with SkillWave.');
+
+  const testimonials = [
+    {
+      id: 'om_karande',
+      name: 'Om Karande',
+      location: 'Co-founder & CEO, Imergene',
+      duration: 'Business Mentorship',
+      image: '/Om_Karande.png',
+      initials: 'OK',
+      rating: 5,
+      summary: 'Choosing Abhishek Sir as my guide and business consultant was the best decision of my life.',
+      quote: "Abhishek Sir's teachings on balancing life, financial discipline, and taking small steps every day helped me a lot in changing my life. Learning from him didn't feel like 'Learning'—it felt like a 'Game'.",
+      experience: {
+        life: "Abhishek Sir's teachings on daily habits and financial discipline helped me balance my life and make small, consistent progress every single day.",
+        confidence: "He guided me to become confident, independent, and clear about my values, showing me exactly how to conduct myself as a balanced human.",
+        business: "He personally mentored me in growing my business, making him the best choice as my guide and business consultant."
+      }
+    },
+    {
+      id: 'shlok_khobare',
+      name: 'Shlok Khobare',
+      location: 'Student',
+      duration: 'Career Mentorship',
+      initials: 'SK',
+      rating: 5,
+      summary: 'Learning from him was easy and enjoyable. He makes difficult topics simple to understand.',
+      quote: 'Abhishek Sir is the best listener, he understands things so quick and nice. I gained confidence and learned a lot, choosing my career path under his guidance.',
+      experience: {
+        life: 'His sessions are deeply patient, helping me clarify my daily goals and balance my academic schedule.',
+        confidence: 'I gained immense confidence and learned to express myself clearly and without hesitation.',
+        business: 'He made difficult career concepts simple to understand, guiding me to make the right stream choices.'
+      }
+    },
+    {
+      id: 'sanket_shaha',
+      name: 'Sanket Shaha',
+      location: 'Parent of Student',
+      duration: 'Parent Consultation',
+      initials: 'SS',
+      rating: 5,
+      summary: 'I have seen a positive change in my child’s confidence and overall nature.',
+      quote: "Abhishek Sir's consultation style is friendly, supportive, and easy to follow. I truly appreciate the care and attention he gives to everyone.",
+      experience: {
+        life: "My child's daily habits, routine discipline, and screen time balance have improved significantly.",
+        confidence: "I've witnessed a major boost in my child's self-confidence and their way of talking to people.",
+        business: 'The friendly, personalized support provided in each mentorship session is truly exceptional.'
+      }
+    },
+    {
+      id: 'soham_phatak',
+      name: 'Soham Phatak',
+      location: 'Co-founder & CTO, Imergene',
+      duration: 'Business Mentorship',
+      image: '/Soham.png',
+      initials: 'SP',
+      rating: 5,
+      summary: 'Transitioned from an overwhelmed graduate to a highly focused, balanced professional.',
+      quote: "Before meeting Abhishek Sir, I was constantly anxious about my career path and struggled with screen distractions. His 1:1 guidance taught me how to channel my energy, build daily habits, and approach difficult challenges with confidence.",
+      experience: {
+        life: 'Taught me custom daily habit routines that completely bypassed procrastination and returned focus to my core goals.',
+        confidence: 'His patient listening style made me feel understood and built the confidence I needed to ace my job interviews.',
+        business: 'Helped me map out a practical 3-year professional roadmap, showing me how to maintain focus in high-pressure roles.'
+      }
+    }
+  ];
+
+  const [activeTestimonialIdx, setActiveTestimonialIdx] = useState(0);
+  const [isTestimonialAnimating, setIsTestimonialAnimating] = useState(false);
+  const [testimonialDirection, setTestimonialDirection] = useState<'next' | 'prev'>('next');
+
+  const nextTestimonial = () => {
+    if (isTestimonialAnimating || testimonials.length <= 1) return;
+    setTestimonialDirection('next');
+    setIsTestimonialAnimating(true);
+    setTimeout(() => {
+      setActiveTestimonialIdx((prev) => (prev + 1) % testimonials.length);
+      setIsTestimonialAnimating(false);
+    }, 300);
+  };
+
+  const prevTestimonial = () => {
+    if (isTestimonialAnimating || testimonials.length <= 1) return;
+    setTestimonialDirection('prev');
+    setIsTestimonialAnimating(true);
+    setTimeout(() => {
+      setActiveTestimonialIdx((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+      setIsTestimonialAnimating(false);
+    }, 300);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowLeft') {
+        prevTestimonial();
+      } else if (e.key === 'ArrowRight') {
+        nextTestimonial();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [activeTestimonialIdx, isTestimonialAnimating]);
 
   const beforeAfterData = [
     { before: 'Confused & lost about career choices', after: 'Clear direction & personalized roadmap' },
@@ -113,7 +214,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
   ];
 
   const handleWhatsAppClick = (programName?: string) => {
-    const text = programName 
+    const text = programName
       ? `Hello Abhishek Sir, I want to inquire about the SkillWave program: "${programName}". Please share details.`
       : whatsappMessage;
     const encoded = encodeURIComponent(text);
@@ -122,7 +223,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
   return (
     <div className="bg-[#FAF9F6] text-[#0F1E36] font-sans">
-      
+
       {/* SkillWave Hero Section */}
       <section className="relative overflow-hidden pt-36 pb-24 md:pt-44 md:pb-32 bg-gradient-to-b from-[#E6F0FA]/80 via-[#FAF9F6] to-[#FAF9F6]">
         {/* Abstract background shapes representing progress waves */}
@@ -131,7 +232,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
+
             {/* Hero Left Content */}
             <div className="lg:col-span-7 space-y-6 text-left">
               {/* Flag Badge */}
@@ -193,7 +294,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
             {/* Hero Right Visual Card */}
             <div className="lg:col-span-5 relative">
               <div className="bg-white p-7 sm:p-9 rounded-3xl shadow-xl shadow-blue-100/50 border border-blue-50/80 space-y-6 relative">
-                
+
                 {/* Visual Header */}
                 <div className="flex items-center justify-between pb-4 border-b border-zinc-100">
                   <SkillWaveLogo className="h-9" />
@@ -247,7 +348,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
       {/* Philosophy Section - Timeless Bhagavad Gita Roots */}
       <section id="sw-philosophy" className="py-20 bg-white border-y border-zinc-100 relative">
         <div className="max-w-4xl mx-auto px-4 text-center space-y-8">
-          
+
           <div className="inline-flex items-center gap-1.5 bg-emerald-50 text-emerald-700 px-3 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase font-bold border border-emerald-100">
             <Compass className="w-3.5 h-3.5" />
             <span>Our Wisdom Philosophy</span>
@@ -269,7 +370,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
           {/* Three timeless principles bento line */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 max-w-4xl mx-auto">
-            
+
             <div className="p-6 rounded-2xl bg-[#FAF9F6] border border-blue-50 relative group hover:shadow-md transition-all duration-300">
               <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 mb-4 mx-auto font-serif font-bold text-lg select-none">
                 01
@@ -304,7 +405,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
           <div className="pt-6">
             <p className="text-xs font-mono text-[#5A6E85] bg-zinc-50 border border-zinc-150 rounded-2xl inline-block px-5 py-2.5">
-              💡 <span className="font-bold text-[#0F1E36]">Understand:</span> You don’t need all the answers. You just need the right direction — and the courage to begin.
+              <span className="font-bold text-[#0F1E36]">Understand:</span> You don’t need all the answers. You just need the right direction — and the courage to begin.
             </p>
           </div>
 
@@ -314,7 +415,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
       {/* Vision & Realities bento section */}
       <section id="sw-vision" className="py-20 bg-[#FAF9F6] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <span className="text-[10px] uppercase font-mono tracking-widest text-[#3A90E3] font-extrabold block">Addressing the Gap</span>
             <h2 className="font-sans font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[#0F1E36] tracking-tight">
@@ -327,7 +428,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
           {/* Transformation Outcomes Grid before vs after */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-16">
-            
+
             {/* Visual breakdown left */}
             <div className="lg:col-span-5 space-y-6">
               <div className="bg-white p-8 rounded-3xl border border-zinc-200/60 shadow-lg shadow-zinc-100 space-y-5">
@@ -372,7 +473,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
                   <span className="text-[10px] font-mono tracking-widest text-[#3A90E3] uppercase font-extrabold">SkillWave Metric Progression</span>
                   <p className="text-xs text-stone-200 mt-1">Real psychological shift in students before vs. after guidance</p>
                 </div>
-                
+
                 <div className="divide-y divide-zinc-100">
                   <div className="grid grid-cols-2 bg-zinc-50 py-3 px-6 text-xs font-bold text-zinc-700 tracking-wider">
                     <div>BEFORE SKILLWAVE</div>
@@ -405,12 +506,12 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              
+
               {/* Image 1 - Mentoring */}
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-zinc-200/60 group">
-                <img 
-                  src="/mentoring-1.jpg" 
-                  alt="One-on-one mentoring session" 
+                <img
+                  src="/mentoring-1.jpg"
+                  alt="One-on-one mentoring session"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/50 via-transparent to-transparent"></div>
@@ -422,9 +523,9 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
               {/* Image 2 - Focus */}
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-zinc-200/60 group">
-                <img 
-                  src="/focus-2.jpg" 
-                  alt="Deep focus and concentration coaching" 
+                <img
+                  src="/focus-2.jpg"
+                  alt="Deep focus and concentration coaching"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/50 via-transparent to-transparent"></div>
@@ -436,9 +537,9 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
               {/* Image 3 - Coaching */}
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-zinc-200/60 group">
-                <img 
-                  src="/coaching-3.jpg" 
-                  alt="Interactive coaching session" 
+                <img
+                  src="/coaching-3.jpg"
+                  alt="Interactive coaching session"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/50 via-transparent to-transparent"></div>
@@ -450,9 +551,9 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
               {/* Image 4 - Session */}
               <div className="relative w-full h-64 rounded-2xl overflow-hidden shadow-lg border border-zinc-200/60 group">
-                <img 
-                  src="/session-4.jpg" 
-                  alt="Professional development session" 
+                <img
+                  src="/session-4.jpg"
+                  alt="Professional development session"
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0F1E36]/50 via-transparent to-transparent"></div>
@@ -471,7 +572,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
       {/* Who is this for Cards */}
       <section className="py-20 bg-[#FAF9F6]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="mt-20">
             <div className="text-center mb-12">
               <span className="text-[10px] font-mono text-emerald-600 font-bold uppercase tracking-widest">Audience Mappings</span>
@@ -479,7 +580,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
-              
+
               <div className="p-6 bg-white rounded-2xl border border-zinc-200/50 space-y-3 shadow-xs hover:-translate-y-1 transition-all">
                 <div className="w-10 h-10 rounded-xl bg-blue-55/10 flex items-center justify-center text-blue-600 font-bold text-sm">🎓</div>
                 <h4 className="font-bold text-sm text-[#0F1E36]">Students (Ages 13–25)</h4>
@@ -522,9 +623,9 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
       <section id="sw-founder" className="py-20 bg-white border-y border-zinc-150 relative overflow-hidden">
         {/* Background image with gradient overlay */}
         <div className="absolute inset-0 z-0 overflow-hidden">
-          <img 
-            src="/skillwave-bg.jpg" 
-            alt="Professional coaching environment" 
+          <img
+            src="/skillwave-bg.jpg"
+            alt="Professional coaching environment"
             className="w-full h-full object-cover"
             style={{ objectPosition: 'center 25%' }}
           />
@@ -535,10 +636,10 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            
+
             {/* Left Column Profile text */}
             <div className="lg:col-span-7 text-left space-y-6">
-              
+
               <div className="inline-flex items-center gap-1.5 bg-zinc-50 text-zinc-700 px-3 py-1 rounded-full text-[10px] font-mono tracking-widest uppercase font-bold border border-zinc-200">
                 <Award className="w-3.5 h-3.5 text-blue-500" />
                 <span>Meet the Mentor</span>
@@ -547,7 +648,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
               <h2 className="font-sans font-extrabold text-3xl sm:text-4xl text-[#0F1E36] tracking-tight leading-tight">
                 Abhishek Todkar Mali
               </h2>
-              
+
               <p className="text-xs sm:text-sm font-mono text-zinc-500 font-bold -mt-3 uppercase tracking-wider">
                 Career Mentor | Life Coach | International Speaker
               </p>
@@ -593,13 +694,13 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
               <div className="relative group mx-auto max-w-sm">
                 {/* Backdrop border */}
                 <div className="absolute inset-0 bg-blue-600 rounded-[2.5rem] rotate-3 hover:rotate-1 scale-105 transition-all opacity-15"></div>
-                
+
                 {/* Modern vector illustration frame representing path guidance */}
                 <div className="relative bg-[#0F1E36] p-8 sm:p-10 rounded-[2.5rem] border border-zinc-800 text-stone-200 space-y-6 shadow-xl">
                   <div className="w-16 h-16 rounded-full bg-blue-500/10 flex items-center justify-center border border-blue-500/20 text-3xl mx-auto">
                     🧭
                   </div>
-                  
+
                   <div className="text-center space-y-2">
                     <span className="text-[10.5px] font-mono text-[#3A90E3] uppercase tracking-widest font-extrabold">Career Mentorship</span>
                     <h3 className="font-sans font-bold text-lg text-white">Personal Career Alignment</h3>
@@ -629,7 +730,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
       {/* Pricing and Programs Interactive Grid */}
       <section id="sw-programs" className="py-20 bg-[#FAF9F6] relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
             <span className="text-[10px] uppercase font-mono tracking-widest text-[#22C55E] font-extrabold block">TRANSFORMATION PACKS</span>
             <h2 className="font-sans font-extrabold text-2xl sm:text-3xl lg:text-4xl text-[#0F1E36] tracking-tight">
@@ -657,13 +758,12 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {individualPrograms.map((prog, idx) => (
-                <div 
-                  key={idx} 
-                  className={`bg-white rounded-3xl p-6 sm:p-8 border min-h-[400px] flex flex-col justify-between transition-all duration-300 relative ${
-                    prog.popular 
-                      ? 'border-[#3A90E3] shadow-md ring-1 ring-[#3A90E3]/20 shadow-blue-50' 
+                <div
+                  key={idx}
+                  className={`bg-white rounded-3xl p-6 sm:p-8 border min-h-[400px] flex flex-col justify-between transition-all duration-300 relative ${prog.popular
+                      ? 'border-[#3A90E3] shadow-md ring-1 ring-[#3A90E3]/20 shadow-blue-50'
                       : 'border-zinc-200/60 hover:shadow-sm'
-                  }`}
+                    }`}
                 >
                   {prog.popular && (
                     <span className="absolute top-0 right-6 -translate-y-1/2 bg-[#3A90E3] text-white text-[9px] uppercase font-mono tracking-widest font-extrabold py-1 px-3 rounded-full">
@@ -706,11 +806,10 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
                   <div className="mt-8">
                     <button
                       onClick={() => handleWhatsAppClick(prog.title)}
-                      className={`w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider border transition-all ${
-                        prog.popular 
-                          ? 'bg-[#3A90E3] text-white hover:bg-blue-600 shadow-sm' 
+                      className={`w-full py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider border transition-all ${prog.popular
+                          ? 'bg-[#3A90E3] text-white hover:bg-blue-600 shadow-sm'
                           : 'bg-white hover:bg-zinc-50 text-[#0F1E36] border-zinc-200'
-                      }`}
+                        }`}
                     >
                       Book over WhatsApp
                     </button>
@@ -725,15 +824,15 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
             <div className="bg-[#0F1E36] rounded-3xl p-8 sm:p-12 text-white relative overflow-hidden shadow-xl">
               {/* Dynamic decorative backdrop circles */}
               <div className="absolute top-0 right-0 w-80 h-80 bg-blue-600/10 rounded-full blur-2xl -mt-20 -mr-20"></div>
-              
+
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
-                
+
                 {/* Text specifics */}
                 <div className="lg:col-span-7 space-y-6 text-left">
                   <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/20 border border-blue-400/30 text-[10px] font-mono tracking-wider font-extrabold text-blue-200 uppercase">
                     🔥 PREMIUM INDIVIDUAL PLAN
                   </div>
-                  
+
                   <h3 className="font-sans font-extrabold text-2xl sm:text-3xl tracking-tight leading-tight">
                     Student Success Plan (Ages 13–25)
                   </h3>
@@ -768,22 +867,20 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
                 {/* Switcher & Price visual side */}
                 <div className="lg:col-span-5 bg-white/5 rounded-2xl border border-white/10 p-6 sm:p-8 space-y-4">
                   <span className="text-[10px] font-mono tracking-wider text-blue-300 font-extrabold block uppercase">Select Program Span:</span>
-                  
+
                   {/* Switcher Tabs */}
                   <div className="grid grid-cols-2 bg-white/5 p-1 rounded-xl gap-2 border border-white/10">
                     <button
                       onClick={() => setSelectedDuration('3m')}
-                      className={`py-2 text-xs font-bold rounded-lg transition-all ${
-                        selectedDuration === '3m' ? 'bg-[#3A90E3] text-white shadow-sm' : 'text-stone-300 hover:text-white'
-                      }`}
+                      className={`py-2 text-xs font-bold rounded-lg transition-all ${selectedDuration === '3m' ? 'bg-[#3A90E3] text-white shadow-sm' : 'text-stone-300 hover:text-white'
+                        }`}
                     >
                       3 Months Mentorship
                     </button>
                     <button
                       onClick={() => setSelectedDuration('6m')}
-                      className={`py-2 text-xs font-bold rounded-lg transition-all ${
-                        selectedDuration === '6m' ? 'bg-[#3A90E3] text-white shadow-sm' : 'text-stone-300 hover:text-white'
-                      }`}
+                      className={`py-2 text-xs font-bold rounded-lg transition-all ${selectedDuration === '6m' ? 'bg-[#3A90E3] text-white shadow-sm' : 'text-stone-300 hover:text-white'
+                        }`}
                     >
                       6 Months Mentorship
                     </button>
@@ -842,7 +939,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
                 return (
                   <div key={i} className={`p-6 sm:p-8 rounded-3xl border bg-white shadow-xs ${grp.bg} flex flex-col justify-between`}>
                     <div className="space-y-4">
-                      
+
                       <div className="flex justify-between items-start">
                         <div className="w-12 h-12 rounded-xl bg-[#0F1E36]/5 flex items-center justify-center text-xl">
                           <IconComp className="w-5.5 h-5.5 text-[#0F1E36]" />
@@ -891,10 +988,10 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
         </div>
       </section>
 
-      {/* Real Voices Testimonials */}
-      <section className="py-20 bg-white border-t border-zinc-150">
-        <div className="max-w-4xl mx-auto px-4 text-center space-y-10">
-          
+      {/* Real Voices Testimonials Carousel */}
+      <section id="sw-testimonials" className="py-20 bg-white border-t border-zinc-150">
+        <div className="max-w-6xl mx-auto px-4 text-center space-y-10">
+
           <div className="space-y-2">
             <span className="text-[10px] font-mono tracking-widest text-[#3A90E3] uppercase font-extrabold block">Impact metrics</span>
             <h2 className="font-sans font-extrabold text-2xl sm:text-3xl text-[#0F1E36] tracking-tight">
@@ -902,46 +999,165 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+          {/* Carousel Outer Wrapper */}
+          <div className="relative max-w-5xl mx-auto px-4 sm:px-12">
             
-            <div className="p-6 rounded-2xl bg-[#FAF9F6] border border-blue-50 space-y-3">
-              <p className="text-xs sm:text-sm text-zinc-700 italic">
-                &ldquo;Before SkillWave, I had zero clarity and no idea what stream or specialty of career to prioritize. Abhishek Sir helped me belive in myself and lay out a practical roadmap.&rdquo;
-              </p>
-              <div className="flex items-center gap-2 pt-2">
-                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold text-blue-600">S</div>
-                <div>
-                  <span className="text-xs font-bold text-zinc-800 block">Siddharth K.</span>
-                  <span className="text-[9px] font-mono text-zinc-450">Student (Grade XII)</span>
-                </div>
-              </div>
+            {/* Main Card Viewport */}
+            <div className="overflow-hidden min-h-[500px] md:min-h-[420px]">
+              {testimonials.map((t, idx) => {
+                if (idx !== activeTestimonialIdx) return null;
+                return (
+                  <div 
+                    key={t.id} 
+                    className={`w-full bg-white/70 backdrop-blur-md border border-blue-100 rounded-[2rem] p-8 sm:p-12 shadow-sm hover:shadow-md transition-all duration-300 transform relative text-left ${
+                      isTestimonialAnimating 
+                        ? testimonialDirection === 'next' 
+                          ? 'opacity-0 translate-x-12 scale-98' 
+                          : 'opacity-0 -translate-x-12 scale-98'
+                        : 'opacity-100 translate-x-0 scale-100'
+                    }`}
+                  >
+                    {/* Quote icon background ornament */}
+                    <Quote className="absolute top-8 right-8 w-24 h-24 text-blue-500/5 pointer-events-none" />
+
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+                      
+                      {/* Left Column: Image and Profile Info */}
+                      <div className="lg:col-span-4 flex flex-col items-center text-center lg:text-left lg:items-start lg:border-r lg:border-blue-100 lg:pr-8">
+                        <div className="relative mb-4 group">
+                          <div className="absolute inset-0 bg-[#3A90E3] rounded-2xl rotate-3 hover:rotate-1 scale-105 transition-all opacity-15"></div>
+                          {t.image ? (
+                            <img 
+                              src={t.image} 
+                              alt={t.name}
+                              className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-2xl object-cover border-2 border-blue-100 shadow-md z-10"
+                            />
+                          ) : (
+                            <div className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-2xl border-2 border-blue-100 bg-[#FAF9F6] flex items-center justify-center shadow-md z-10 text-[#3A90E3] font-bold text-3xl sm:text-4xl select-none font-sans">
+                              {t.initials}
+                            </div>
+                          )}
+                        </div>
+                        
+                        <h3 className="font-sans font-bold text-lg text-[#0F1E36] mt-2 leading-tight">
+                          {t.name}
+                        </h3>
+                        
+                        <div className="flex items-center gap-1.5 text-zinc-550 text-xs mt-1.5 font-sans">
+                          <Briefcase className="w-3.5 h-3.5 text-[#3A90E3]" />
+                          <span>{t.location}</span>
+                        </div>
+
+                        <span className="mt-3 inline-block px-3 py-1 bg-blue-500/5 text-[#3A90E3] text-[10px] font-mono font-bold uppercase rounded-full tracking-wider">
+                          {t.duration}
+                        </span>
+                      </div>
+
+                      {/* Right Column: Review Details */}
+                      <div className="lg:col-span-8 space-y-6 text-left">
+                        {/* Star Rating & Summary */}
+                        <div className="space-y-2">
+                          <div className="flex items-center gap-1">
+                            {[...Array(t.rating)].map((_, i) => (
+                              <Star key={i} className="w-4 h-4 fill-[#3A90E3] text-[#3A90E3]" />
+                            ))}
+                          </div>
+                          <p className="text-base sm:text-lg font-sans font-bold text-[#0F1E36] leading-tight italic">
+                            "{t.summary}"
+                          </p>
+                        </div>
+
+                        {/* Quote content */}
+                        <p className="text-zinc-650 text-sm font-sans leading-relaxed font-light">
+                          {t.quote}
+                        </p>
+
+                        {/* Bulleted details */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-blue-100">
+                          <div className="bg-blue-50/10 p-4 rounded-xl border border-blue-100/30">
+                            <span className="text-[10px] uppercase font-mono tracking-widest text-[#3A90E3] font-bold block mb-1">Life Balance</span>
+                            <p className="text-[11px] text-zinc-600 leading-relaxed font-sans font-light">
+                              {t.experience.life}
+                            </p>
+                          </div>
+
+                          <div className="bg-blue-50/10 p-4 rounded-xl border border-blue-100/30">
+                            <span className="text-[10px] uppercase font-mono tracking-widest text-[#3A90E3] font-bold block mb-1">Confidence</span>
+                            <p className="text-[11px] text-zinc-600 leading-relaxed font-sans font-light">
+                              {t.experience.confidence}
+                            </p>
+                          </div>
+
+                          <div className="bg-blue-50/10 p-4 rounded-xl border border-blue-100/30">
+                            <span className="text-[10px] uppercase font-mono tracking-widest text-[#3A90E3] font-bold block mb-1">Business Growth</span>
+                            <p className="text-[11px] text-zinc-600 leading-relaxed font-sans font-light">
+                              {t.experience.business}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                );
+              })}
             </div>
 
-            <div className="p-6 rounded-2xl bg-[#FAF9F6] border border-blue-50 space-y-3">
-              <p className="text-xs sm:text-sm text-zinc-700 italic">
-                &ldquo;As parent, we were very worried about mobile screen time and absolute lack of academic commitment. The 3C alignment checks actually returned focus and habit structure.&rdquo;
-              </p>
-              <div className="flex items-center gap-2 pt-2">
-                <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center text-xs font-bold text-emerald-600">PM</div>
-                <div>
-                  <span className="text-xs font-bold text-zinc-800 block">Prakash M.</span>
-                  <span className="text-[9px] font-mono text-zinc-450">Parent of Abhishek (Grade X)</span>
-                </div>
-              </div>
-            </div>
+            {/* Navigation Chevron Buttons */}
+            {testimonials.length > 1 && (
+              <>
+                {/* Left Chevron */}
+                <button
+                  onClick={prevTestimonial}
+                  className="absolute left-[-16px] sm:left-[-24px] top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 bg-[#0F1E36] hover:bg-zinc-800 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 border border-blue-100/35 hover:scale-105 active:scale-95 cursor-pointer z-20"
+                  aria-label="Previous testimonial"
+                >
+                  <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
+                </button>
 
-            <div className="p-6 rounded-2xl bg-[#FAF9F6] border border-blue-50 space-y-3">
-              <p className="text-xs sm:text-sm text-zinc-700 italic">
-                &ldquo;We invited Abhishek Sir for our standard and secondary teachers of secondary and coaching groups. The handling strategies are exceptionally practical and refreshing.&rdquo;
-              </p>
-              <div className="flex items-center gap-2 pt-2">
-                <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-xs font-bold text-amber-600">DR</div>
-                <div>
-                  <span className="text-xs font-bold text-zinc-800 block">Dr. Renuka S.</span>
-                  <span className="text-[9px] font-mono text-zinc-450">High-School Principal</span>
-                </div>
+                {/* Right Chevron */}
+                <button
+                  onClick={nextTestimonial}
+                  className="absolute right-[-16px] sm:right-[-24px] top-1/2 -translate-y-1/2 w-11 h-11 sm:w-12 sm:h-12 bg-[#0F1E36] hover:bg-zinc-800 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 border border-blue-100/35 hover:scale-105 active:scale-95 cursor-pointer z-20"
+                  aria-label="Next testimonial"
+                >
+                  <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6" />
+                </button>
+              </>
+            )}
+
+            {/* Pagination dots */}
+            {testimonials.length > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-8">
+                {testimonials.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      if (isTestimonialAnimating) return;
+                      setTestimonialDirection(idx > activeTestimonialIdx ? 'next' : 'prev');
+                      setIsTestimonialAnimating(true);
+                      setTimeout(() => {
+                        setActiveTestimonialIdx(idx);
+                        setIsTestimonialAnimating(false);
+                      }, 300);
+                    }}
+                    className={`w-2.5 h-2.5 rounded-full transition-all duration-300 cursor-pointer ${
+                      activeTestimonialIdx === idx 
+                        ? 'bg-[#3A90E3] w-6' 
+                        : 'bg-blue-100 hover:bg-blue-205'
+                    }`}
+                    aria-label={`Go to slide ${idx + 1}`}
+                  />
+                ))}
               </div>
-            </div>
+            )}
+
+            {/* Keyboard navigation helper */}
+            {testimonials.length > 1 && (
+              <div className="text-center mt-3 text-[10px] text-zinc-400 font-mono">
+                Tip: Use your keyboard's <span className="font-semibold text-zinc-500">←</span> and <span className="font-semibold text-zinc-500">→</span> keys to navigate slides.
+              </div>
+            )}
 
           </div>
 
@@ -954,7 +1170,7 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
                 Our individual discovery slots are limited and processed on a first-come, first-served schedule. Contact directly via WhatsApp.
               </p>
             </div>
-            
+
             <button
               onClick={() => handleWhatsAppClick('I want to schedule my first career/youth program discovery consultation.')}
               className="px-6 py-3 bg-[#22C55E] text-white hover:bg-emerald-600 font-bold rounded-xl text-xs uppercase tracking-wider whitespace-nowrap"
