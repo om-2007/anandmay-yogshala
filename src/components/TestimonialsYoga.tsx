@@ -13,6 +13,7 @@ interface Testimonial {
   location: string;
   duration: string;
   image: string;
+  initials: string;
   rating: number;
   quote: string;
   experience: {
@@ -31,7 +32,8 @@ export default function TestimonialsYoga() {
       age: 43,
       location: 'Nashik',
       duration: '1+ Year Member',
-      image: '/Samadhan_Wadkar.jpeg',
+      image: '/Samadhan_Wadalkar.jpeg',
+      initials: 'SW',
       rating: 5,
       summary: 'Waking up early, eating on time, and staying active throughout the day has now become effortless.',
       quote: 'Joining Anandmay Yogshala a year ago was one of the most positive decisions of my life. Under Coach Abhishek’s guidance, I have experienced a complete lifestyle transformation.',
@@ -48,6 +50,7 @@ export default function TestimonialsYoga() {
       location: 'Yogshala Member',
       duration: 'Active Member',
       image: '/Natvarbhai.jpeg',
+      initials: 'NB',
       rating: 5,
       summary: 'Since joining, we feel more energetic, our minds are calmer, and our bodies feel lighter.',
       quote: 'We are grateful to Abhishek Ji, our yoga guru, for the positive changes he has brought into our lives. We have experienced a significant improvement in our overall well-being under his dedicated guidance.',
@@ -63,6 +66,7 @@ export default function TestimonialsYoga() {
       location: 'Yogshala Member',
       duration: 'Active Member',
       image: '/Dr_Sonal.jpeg',
+      initials: 'DS',
       rating: 5,
       summary: 'Yoga here is not just about asanas; Abhishek Sir teaches valuable life lessons too.',
       quote: 'Grateful to be a part of Anandmay Yogshala. Since joining, my energy levels have improved, and I feel more connected to myself. I truly appreciate the personal attention and guidance Coach Abhishek gives to every student.',
@@ -77,7 +81,8 @@ export default function TestimonialsYoga() {
       name: 'Mrs. Vaishali Mali',
       location: 'Online Class Member',
       duration: '1+ Year Member',
-      image: '/Vaishali_Mali.jpeg',
+      image: '',
+      initials: 'VM',
       rating: 5,
       summary: 'Anandmay Yogshala has greatly helped in improving my physical and mental health.',
       quote: 'Yoga Guru Abhishek Todkar teaches yoga postures exceptionally well. I have been learning from him for nearly a year through online classes. The breathing exercises and postures have brought immense clarity and peace to my mind.',
@@ -85,6 +90,23 @@ export default function TestimonialsYoga() {
         physical: 'My daily energy has increased significantly, and I have noticed a major improvement in my physical posture.',
         mental: 'The breathing exercises (Pranayama) and meditation have brought immense clarity and peace of mind.',
         classes: 'Abhishek Sir teaches yoga postures exceptionally well through his structured and engaging online classes.'
+      }
+    },
+    {
+      id: 'sn_parekh',
+      name: 'Mrs. S. N. Parekh',
+      age: 70,
+      location: 'Yogshala Member',
+      duration: 'Active Member',
+      image: '/SN_Parekh.jpeg',
+      initials: 'SP',
+      rating: 5,
+      summary: 'At age 70, my mobility and posture have improved, and I feel a deep sense of peace.',
+      quote: 'Abhishek Ji’s guidance and online classes are a blessing for seniors. The breathing exercises and daily asanas have brought immense energy and clarity to my life, helping me stay active and pain-free.',
+      experience: {
+        physical: 'Significant improvements in overall posture, breathing capacity, and physical balance at age 70.',
+        mental: 'Felt a deep sense of mental clarity, relaxation, and overall emotional well-being.',
+        classes: 'The personalized support and careful modifications for older adults make his training exceptionally safe and beneficial.'
       }
     }
   ];
@@ -169,11 +191,17 @@ export default function TestimonialsYoga() {
                 <div className="lg:col-span-4 flex flex-col items-center text-center lg:text-left lg:items-start lg:border-r lg:border-[#1A3B32]/10 lg:pr-8">
                   <div className="relative mb-4 group">
                     <div className="absolute inset-0 bg-[#D97706] rounded-2xl rotate-3 hover:rotate-1 scale-105 transition-all opacity-15"></div>
-                    <img
-                      src={activeTestimonial.image}
-                      alt={activeTestimonial.name}
-                      className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-2xl object-cover border-2 border-[#1A3B32]/15 shadow-md z-10"
-                    />
+                    {activeTestimonial.image ? (
+                      <img
+                        src={activeTestimonial.image}
+                        alt={activeTestimonial.name}
+                        className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-2xl object-cover border-2 border-[#1A3B32]/15 shadow-md z-10"
+                      />
+                    ) : (
+                      <div className="relative w-36 h-36 sm:w-48 sm:h-48 rounded-2xl border-2 border-[#1A3B32]/15 shadow-md z-10 bg-[#1A3B32]/5 flex items-center justify-center text-[#1A3B32] text-4xl font-extrabold font-serif">
+                        {activeTestimonial.initials}
+                      </div>
+                    )}
                   </div>
 
                   <h3 className="font-serif font-bold text-lg text-[#1A3B32] mt-2 leading-tight">

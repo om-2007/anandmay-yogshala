@@ -38,6 +38,22 @@ export default function SkillWave({ onBookClick }: SkillWaveProps) {
       }
     },
     {
+      id: 'puja_borhade',
+      name: 'Puja Borhade',
+      location: 'Senior Design Associate, Sakal Press',
+      duration: 'Design Mentorship',
+      image: '/Puja_Borhade .jpeg',
+      initials: 'PB',
+      rating: 5,
+      summary: 'He explains things in a simple way, listens carefully, and always gives practical guidance.',
+      quote: "Working with him was a really good experience. His support helped me feel more confident, improve my skills, and grow in my current domain.",
+      experience: {
+        life: "He helped me manage stress, stay disciplined with daily habits, and balance my design workload.",
+        confidence: "His friendly and supportive consulting style gave me the confidence to express myself and grow.",
+        business: "Gave me practical guidance to improve my design skills, enabling me to grow professionally in my domain."
+      }
+    },
+    {
       id: 'shlok_khobare',
       name: 'Shlok Khobare',
       location: 'Student',
